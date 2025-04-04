@@ -17,8 +17,13 @@ public class UserService {
     private UserRepostory userRepostory;
     @Autowired
     private ModelMapper modelMapper;
-    public void saveCustomer(UserDto userDto){
+    public void saveUser(UserDto userDto){
         if(userRepostory.existsById(userDto.getUid())) throw new RuntimeException("Alrady Exsist");
         userRepostory.save(modelMapper.map(userDto, User.class));
+    }
+
+    public void deleteUser(String id){
+        if(!userRepostory.existsById(id)) throw new RuntimeException("Cant FInd Exsist");
+        userRepostory.deleteById(id);
     }
 }

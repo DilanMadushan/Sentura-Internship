@@ -19,9 +19,20 @@ public class UserController {
     public ResponseEntity<?> saveUser(@RequestBody UserDto userDto){
         try{
             System.out.println(userDto.toString());
-            userService.saveCustomer(userDto);
+            userService.saveUser(userDto);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/{uid}")
+    public ResponseEntity<?> deleteUser(@PathVariable String uid) {
+        try {
+           userService.deleteUser(uid);
+           return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
